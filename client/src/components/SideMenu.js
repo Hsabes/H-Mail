@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+// import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
@@ -10,19 +11,24 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
+import CreateIcon from '@mui/icons-material/Create';
+import SendIcon from '@mui/icons-material/Send';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function SideMenu() {
-  const [state, setState] = useState({
+export default function SideMenu({ setNavigation }) {
+  const [drawer, setDrawer] = useState({
     left: false,
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
+    // console.log(event)
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
-    setState({ ...state, [anchor]: open });
+    setDrawer({ ...drawer, [anchor]: open });
   };
+
+  // set the text of the mapped array to the route ex: component={"/" + text.toLowerCase() }, text needs to be the same name as the route
 
   const list = (anchor) => (
     <Box
@@ -32,11 +38,24 @@ export default function SideMenu() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['Inbox', 'Saved', 'Send email', 'Sent'].map((text, index) => (
+        {['inbox', 'saved', 'compose', 'sent'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={(e) => {
+              if (text === "inbox"){
+                setNavigation(text)
+              } else if (text === "saved"){
+                setNavigation(text)
+              } else if (text === "compose"){
+                setNavigation(text)
+              } else if (text === "sent"){
+                setNavigation(text)
+              }
+            } }>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {text === "inbox" ? <MailIcon /> : null}
+                {text === "saved" ? <InboxIcon /> : null}
+                {text === "compose" ? <CreateIcon /> : null}
+                {text === "sent" ? <SendIcon /> : null}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -45,11 +64,18 @@ export default function SideMenu() {
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash'].map((text, index) => (
+        {['all mail', 'trash'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={(e) => {
+              if (text === "all mail"){
+                setNavigation(text)
+              } else if (text === "trash"){
+                setNavigation(text)
+              } 
+            } }>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {text === "all mail" ? <MailIcon /> : null}
+                {text === "trash" ? <DeleteIcon /> : null}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -59,6 +85,16 @@ export default function SideMenu() {
     </Box>
   );
 
+  function handleMenuClick(text){
+    if (text === "inbox"){
+      console.log("correct")
+    } else {
+      console.log("incorrect")
+    }
+  }
+
+  // console.log(drawer)
+
   return (
     <div>
       {['left'].map((anchor) => (
@@ -66,7 +102,7 @@ export default function SideMenu() {
           <MenuIcon sx={{ width: 40, height: 38 }} onClick={toggleDrawer(anchor, true)}/>
           <Drawer
             anchor={anchor}
-            open={state[anchor]}
+            open={drawer[anchor]}
             onClose={toggleDrawer(anchor, false)}
           >
             {list(anchor)}
