@@ -4,7 +4,7 @@ import { AppBar, styled, Avatar, Menu, MenuItem, Toolbar, Box } from "@mui/mater
 import { deepOrange } from '@mui/material/colors';
 import SideMenu from "./SideMenu.js"
 
-function NavBar({ currentUser, setCurrentUser, setSideMenu }) {
+function NavBar({ currentUser, setCurrentUser, setSideMenu, setNavigation }) {
 
     const [open, setOpen] = useState(false)
 
@@ -49,12 +49,12 @@ function NavBar({ currentUser, setCurrentUser, setSideMenu }) {
             )`,
         }}>
         <StyledToolbar>
-            <SideMenu />
+            <SideMenu setNavigation={setNavigation}/>
             <h1 sx={{ display: {xs: "none", sm:"block" } }} style={{color: "black"}}>
                 Hmail
             </h1>
         <Icons>
-            <Avatar sx={{ bgcolor: deepOrange[500], width: 57, height: 57 }} src={currentUser.profile_picture}
+            <Avatar sx={{ bgcolor: deepOrange[500], width: 57, height: 57 }}
             onClick={e=>setOpen(true)}
             />
         </Icons>

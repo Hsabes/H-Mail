@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import NavBar from "./NavBar.js"
-import SideMenu from "./SideMenu"
+import Emails from "./Emails.js"
 
 function Inbox({ currentUser, setCurrentUser }) {
 
-  const [sideMenu, setSideMenu] = useState(false)
+  const [navigation, setNavigation] = useState("inbox")
 
   return (
-    <div>
-      <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser} setSideMenu={setSideMenu} />
-    </div>
+    <>
+      <NavBar currentUser={currentUser} 
+      setCurrentUser={setCurrentUser} 
+      setNavigation={setNavigation} />
+      <Emails navigation={navigation}/>
+    </>
   )
 }
 

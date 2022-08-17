@@ -26,3 +26,5 @@ end
 
 # A lot of emails sent and recieved, load only the ones for the specific tab that is opened
 # (don't load all emails if you are in sent tab, only sent emails)
+
+# GET ALL RECEIEVED EMAILS WHERE READ === FALSE
