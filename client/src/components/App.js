@@ -1,28 +1,33 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Login from "./Login.js"
+import Signup from "./Signup.js"
+import Inbox from "./Inbox.js"
 
 function App() {
-  const [count, setCount] = useState(0);
+
+  const [currentUser, setCurrentUser] = useState(false) 
 
   useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
+    fetch("/me")
+    .then(res => res.json())
+    .then((user) => {
+      setCurrentUser(user)
+    })
   }, []);
 
+  console.log(currentUser)
+  // Test user: harry@hmail.com || asdf
+
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Switch>
-          <Route path="/testing">
-            <h1>Test Route</h1>
-          </Route>
-          <Route path="/">
-            <h1>Page Count: {count}</h1>
-          </Route>
-        </Switch>
-      </div>
-    </BrowserRouter>
+
+        <Routes>
+          <Route path="/" element={<Login setCurrentUser={setCurrentUser}/>} />
+          <Route path="signup" element={<Signup setCurrentUser={setCurrentUser}/>} />
+          <Route path="inbox" element={<Inbox currentUser={currentUser} 
+          setCurrentUser={setCurrentUser} />} />
+        </Routes>
+
   );
 }
 
