@@ -6,8 +6,14 @@ class EmailsController < ApplicationController
     end 
 
     def create
-        email = Email.create!(email_params)
+        email = Email.create!(email_params_create)
         render json: email, status: :created
+    end
+
+    def update
+        email = Email.find(params[:id])
+        email.update!(email_params_update)
+        render json: email, status: :accepted
     end
 
     def destroy
@@ -18,8 +24,12 @@ class EmailsController < ApplicationController
 
     private
 
-    def email_params
+    def email_params_create
         params.permit(:subject, :body, :file, :sender_id, :recipient_id)
+    end
+
+    def email_params_update
+        params.permit(:saved, :read)
     end
 
 end
