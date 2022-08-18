@@ -52,6 +52,7 @@ function Login({ setCurrentUser }) {
     .then((user) => {
         setCurrentUser(user)
         navigate("/inbox")
+        window.location.reload(false)
     })
     .catch((error) => {
         alert(error)
