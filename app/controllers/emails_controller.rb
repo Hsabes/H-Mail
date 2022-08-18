@@ -28,3 +28,4 @@ end
 # (don't load all emails if you are in sent tab, only sent emails)
 
 # GET ALL RECEIEVED EMAILS WHERE READ === FALSE
+# /emails?status=read

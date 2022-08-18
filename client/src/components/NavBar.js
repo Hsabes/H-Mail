@@ -29,10 +29,6 @@ function NavBar({ currentUser, setCurrentUser, setSideMenu, setNavigation }) {
         navigate("/")
     };
 
-    function handleMenuClick(){
-        setSideMenu(currentState => !currentState)
-    }
-
   return (
     <AppBar position="sticky" 
     sx={{backgroundColor:"#33691e"}}

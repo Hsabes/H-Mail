@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-// import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
@@ -14,6 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CreateIcon from '@mui/icons-material/Create';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
+import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
 export default function SideMenu({ setNavigation }) {
   const [drawer, setDrawer] = useState({
@@ -21,14 +22,12 @@ export default function SideMenu({ setNavigation }) {
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
-    // console.log(event)
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    console.log(event)
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     setDrawer({ ...drawer, [anchor]: open });
   };
-
-  // set the text of the mapped array to the route ex: component={"/" + text.toLowerCase() }, text needs to be the same name as the route
 
   const list = (anchor) => (
     <Box
@@ -99,14 +98,15 @@ export default function SideMenu({ setNavigation }) {
     <div>
       {['left'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <MenuIcon sx={{ width: 40, height: 38 }} onClick={toggleDrawer(anchor, true)}/>
-          <Drawer
+          { window.innerWidth < 720 ? <DoubleArrowIcon sx={{ width: 40, height: 38 }} onClick={toggleDrawer(anchor, true)}/> : <MenuIcon sx={{ width: 40, height: 38 }} onClick={toggleDrawer(anchor, true)}/>}
+          <SwipeableDrawer
             anchor={anchor}
             open={drawer[anchor]}
             onClose={toggleDrawer(anchor, false)}
+            onOpen={toggleDrawer(anchor, true)}
           >
             {list(anchor)}
-          </Drawer>
+          </SwipeableDrawer>
         </React.Fragment>
       ))}
     </div>
