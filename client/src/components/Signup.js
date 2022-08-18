@@ -43,11 +43,11 @@ function Signup({ setCurrentUser }) {
                     setCurrentUser(user)
                     navigate("/inbox")
                 })
+                setFormData(defaultValues)
             } else {
                 res.json().then(json => setErrors(Object.entries(json.errors)))
             }
-        })
-        setFormData(defaultValues)
+        })     
     }
 
       const handleChange = (e) => {
@@ -65,8 +65,10 @@ function Signup({ setCurrentUser }) {
             passwordStrength = "Strength: Strong"
         } else if (formData.password.length < 10 && formData.password.length >= 5){
             passwordStrength = "Strength: Medium"
-        } else if (formData.password.length < 5 && formData.password.length > 0){
+        } else if (formData.password.length < 5 && formData.password.length >= 3){
             passwordStrength = "Strength: Weak"
+        } else if (formData.password.length < 3 && formData.password.length > 0) {
+            passwordStrength = "Password too short"
         } else if (formData.password.length === 0){
             passwordStrength = null
         }

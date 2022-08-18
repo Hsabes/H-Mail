@@ -147,10 +147,7 @@ function Login({ setCurrentUser }) {
                                 var(--color-1),
                                 var(--color-2),
                                 var(--color-3)
-                                )
-                            `,
-                        
-                            // Unrelated styles:
+                                )`,
                             color: 'white',
                             textAlign: 'center',
                             padding: 15,

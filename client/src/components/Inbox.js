@@ -11,7 +11,7 @@ function Inbox({ currentUser, setCurrentUser }) {
       <NavBar currentUser={currentUser} 
       setCurrentUser={setCurrentUser} 
       setNavigation={setNavigation} />
-      <Emails navigation={navigation}/>
+      <Emails navigation={navigation} currentUser={currentUser}/>
     </>
   )
 }

@@ -19,3 +19,5 @@ end
 #       to: 'fallback#index',
 #       constraints: ->(req) { !req.xhr? && req.format.html? }
 # end
+
+# users/:user_id/emails
