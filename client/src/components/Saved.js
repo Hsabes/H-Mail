@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import { Grid } from '@mui/material';
+import React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -7,23 +6,21 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarRateIcon from '@mui/icons-material/StarRate';
 
-function Emails({ currentUser, checked, handleToggle }) {
-
+function Saved({ currentUser, handleToggle, checked }) {
+  
     const { received_emails } = currentUser
 
-    const sorted_emails = received_emails?.sort((a, b) => b.id - a.id)
+    const savedEmails = received_emails.filter((email) => email.saved === true)
 
-    // Navigation state is to render the emails that belongs to each navigation menu item
-    // Checked, handle click functions
+    console.log(savedEmails)
 
   return (
     <>
         <List dense sx={{ width: '100%' }}>
-        {sorted_emails?.map((email) => {
+        {savedEmails?.map((email) => {
             const labelId = `checkbox-list-secondary-label-${email}`;
             return (
                 <ListItem
@@ -66,7 +63,7 @@ function Emails({ currentUser, checked, handleToggle }) {
                     :
                     <ListItemText id={labelId} primary={email.subject.slice(0,8) + "..."} />
                     }
-                    { window.innerWidth > 400 
+                    { window.innerWidth > 400
                     ? 
                     <h4>Received: {email.created_at.slice(0, 10)}</h4> 
                     :
@@ -78,7 +75,7 @@ function Emails({ currentUser, checked, handleToggle }) {
         })}
         </List>
     </>
-  );
+  )
 }
 
-export default Emails
+export default Saved
