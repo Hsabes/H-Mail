@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate,  Link as RouterLink } from 'react-router-dom'
+import { useNavigate, Link as RouterLink } from 'react-router-dom'
 import { Grid, Link } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import InputAdornment from '@mui/material/InputAdornment';
@@ -135,7 +135,7 @@ function Signup({ setCurrentUser }) {
                             }}
                             id="username"
                             name="username"
-                            label="username"
+                            label="Username"
                             type="text"
                             onChange={handleChange}
                             required>

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -13,7 +11,6 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import CreateIcon from '@mui/icons-material/Create';
 import SendIcon from '@mui/icons-material/Send';
-import DeleteIcon from '@mui/icons-material/Delete';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
 export default function SideMenu({ setNavigation }) {
@@ -22,7 +19,6 @@ export default function SideMenu({ setNavigation }) {
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
-    console.log(event)
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
@@ -37,44 +33,24 @@ export default function SideMenu({ setNavigation }) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['inbox', 'saved', 'compose', 'sent'].map((text, index) => (
+        {['Inbox', 'Saved', 'Compose', 'Sent'].map((text) => (
           <ListItem key={text} disablePadding>
             <ListItemButton onClick={(e) => {
-              if (text === "inbox"){
+              if (text === "Inbox"){
                 setNavigation(text)
-              } else if (text === "saved"){
+              } else if (text === "Saved"){
                 setNavigation(text)
-              } else if (text === "compose"){
+              } else if (text === "Compose"){
                 setNavigation(text)
-              } else if (text === "sent"){
+              } else if (text === "Sent"){
                 setNavigation(text)
               }
             } }>
               <ListItemIcon>
-                {text === "inbox" ? <MailIcon /> : null}
-                {text === "saved" ? <InboxIcon /> : null}
-                {text === "compose" ? <CreateIcon /> : null}
-                {text === "sent" ? <SendIcon /> : null}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['all mail', 'trash'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton onClick={(e) => {
-              if (text === "all mail"){
-                setNavigation(text)
-              } else if (text === "trash"){
-                setNavigation(text)
-              } 
-            } }>
-              <ListItemIcon>
-                {text === "all mail" ? <MailIcon /> : null}
-                {text === "trash" ? <DeleteIcon /> : null}
+                {text === "Inbox" ? <MailIcon /> : null}
+                {text === "Saved" ? <InboxIcon /> : null}
+                {text === "Compose" ? <CreateIcon /> : null}
+                {text === "Sent" ? <SendIcon /> : null}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -84,21 +60,20 @@ export default function SideMenu({ setNavigation }) {
     </Box>
   );
 
-  function handleMenuClick(text){
-    if (text === "inbox"){
-      console.log("correct")
-    } else {
-      console.log("incorrect")
-    }
-  }
 
-  // console.log(drawer)
-
+  
   return (
     <div>
       {['left'].map((anchor) => (
         <React.Fragment key={anchor}>
-          { window.innerWidth < 720 ? <DoubleArrowIcon sx={{ width: 40, height: 38 }} onClick={toggleDrawer(anchor, true)}/> : <MenuIcon sx={{ width: 40, height: 38 }} onClick={toggleDrawer(anchor, true)}/>}
+          { window.innerWidth < 720 
+          ? 
+          <DoubleArrowIcon sx={{ width: 40, height: 38 }} 
+            onClick={toggleDrawer(anchor, true)}/> 
+          : 
+          <MenuIcon sx={{ width: 40, height: 38 }} 
+            onClick={toggleDrawer(anchor, true)}/>
+          }
           <SwipeableDrawer
             anchor={anchor}
             open={drawer[anchor]}

@@ -18,6 +18,7 @@ function App() {
 
   console.log(currentUser)
   // Test user: harry@hmail.com || asdf
+  // Test user: peter@hmail.com  || asdf
 
   return (
 
