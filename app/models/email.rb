@@ -5,6 +5,6 @@ class Email < ApplicationRecord
 
   validates :recipient_id, presence: true
   validates :sender_id, presence: true
-  validates :subject, presence: true, length: { minimum: 1, maximum: 50 }
+  validates :subject, presence: true, length: { minimum: 1 }
 
 end

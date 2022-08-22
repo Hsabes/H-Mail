@@ -1,5 +1,10 @@
 class EmailsController < ApplicationController
 
+    def index
+        emails = Email.all
+        render json: emails, status: :ok
+    end
+
     def show
         email = Email.find(params[:id])
         render json: email, status: :ok
