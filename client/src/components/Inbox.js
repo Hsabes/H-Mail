@@ -1,15 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react' 
 import { Grid } from '@mui/material';
 import Button from '@mui/material/Button';
 import NavBar from "./NavBar.js"
 import Emails from "./Emails.js"
 import Saved from "./Saved.js"
 import Compose from "./Compose.js"
+import SentEmails from "./SentEmails.js"
 
 function Inbox({ currentUser, setCurrentUser }) {
 
   const [navigation, setNavigation] = useState("Inbox")
   const [checked, setChecked] = useState([]);
+  const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        fetch("/users")
+        .then(res => res.json())
+        .then((res) => {
+          setUsers(res)
+        })
+      }, []); 
 
   function handleSaveClick(e){
     checked.map(email => {
@@ -55,15 +65,22 @@ function renderNavigation(){
   if (navigation === "Inbox"){
     return <Emails currentUser={currentUser} 
     handleToggle={handleToggle}
-    checked={checked}/>
+    checked={checked}
+    users={users}/>
   } else if (navigation === "Saved"){
     return <Saved currentUser={currentUser}
     handleToggle={handleToggle}
-    checked={checked}/>
+    checked={checked}
+    users={users}/>
   } else if (navigation === "Sent"){
-    return <h4>sent</h4>
+    return <SentEmails currentUser={currentUser} 
+    handleToggle={handleToggle} 
+    checked={checked}
+    users={users}/>
   } else if (navigation === "Compose"){
-    return <Compose currentUser={currentUser} setNavigation={setNavigation}/>
+    return <Compose currentUser={currentUser} 
+    setNavigation={setNavigation}
+    users={users}/>
   }
 }
 
@@ -80,7 +97,7 @@ function renderNavigation(){
                 onClick={handleDeleteClick}>Delete</Button>
             </Grid>
             <Grid item>
-                <Button disabled={navigation === "Saved" || navigation === "Compose"} variant="contained" onClick={handleSaveClick}>
+                <Button disabled={navigation === "Saved" || navigation === "Compose" || navigation === "Sent"} variant="contained" onClick={handleSaveClick}>
                   Save
                 </Button>
             </Grid>

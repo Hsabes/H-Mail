@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate, Link as RouterLink } from 'react-router-dom'
-import { Grid, Link } from "@mui/material";
+import React, { useState } from 'react'
+import { Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -11,18 +10,9 @@ const defaultValues = {
     body: ''
 }
 
-function Compose({ currentUser, setNavigation }) {
+function Compose({ currentUser, setNavigation, users }) {
 
     const [formData, setFormData] = useState(defaultValues)
-    const [users, setUsers] = useState([])
-
-    useEffect(() => {
-        fetch("/users")
-        .then(res => res.json())
-        .then((res) => {
-          setUsers(res)
-        })
-      }, []); 
 
     function handleSubmit(e){
         e.preventDefault()

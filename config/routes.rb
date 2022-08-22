@@ -8,10 +8,6 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
   get "/me", to: "sessions#show"
 
-  # EMAILS
-
-  
-
 end
 
 # Rails.application.routes.draw do
