@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate,  Link as RouterLink } from 'react-router-dom'
 import { AppBar, styled, Avatar, Menu, MenuItem, Toolbar, Box } from "@mui/material"
 import { deepOrange } from '@mui/material/colors';
-import SideMenu from "./SideMenu.js"
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
-function NavBar({ setCurrentUser, setNavigation }) {
+function NavBar({ setCurrentUser }) {
 
     const [open, setOpen] = useState(false)
 
@@ -32,10 +32,14 @@ function NavBar({ setCurrentUser, setNavigation }) {
         navigate("/account")
     }
 
+    const handleNavigateClick = () => {
+        navigate("/inbox")
+    }
+
   return (
     <AppBar position="sticky" 
     sx={{backgroundColor:"#33691e"}}
-    style={{
+    style={{   
         '--color-1': 'lightblue',
         '--color-2': 'lightgreen',
         '--color-3': 'lightyellow',
@@ -48,7 +52,7 @@ function NavBar({ setCurrentUser, setNavigation }) {
             )`,
         }}>
         <StyledToolbar>
-            <SideMenu setNavigation={setNavigation}/>
+            <ArrowBackIosIcon onClick={handleNavigateClick} sx={{ width: 40, height: 40 }} />
             <h1 sx={{ display: {xs: "none", sm:"block" } }} style={{color: "black"}}>
                 Hmail
             </h1>
@@ -73,7 +77,6 @@ function NavBar({ setCurrentUser, setNavigation }) {
         horizontal: 'right',
         }}
     >
-        <MenuItem onClick={handleClick}>My account</MenuItem>
         <MenuItem onClick={handleLogOut}>Logout</MenuItem>
     </Menu>
     </AppBar>
