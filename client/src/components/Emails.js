@@ -25,7 +25,7 @@ const style = {
     height: "75%",
     bgcolor: 'background.paper',
     border: '2px solid #000',
-    boxShadow: 24,
+    boxShadow: 12,
     p: 4,
 }
 

@@ -46,9 +46,9 @@ function Login({ setCurrentUser }) {
     .then(res => {
         if (res.ok) {
         return res.json();
-        }
+        } else {
         setError('Incorrect Email or Password. Try Again!');
-    })
+    }})
     .then((user) => {
         setCurrentUser(user)
         navigate("/inbox")

@@ -33,10 +33,11 @@ function Compose({ currentUser, setNavigation, users }) {
         .then(res => res.json())
         .then(res => console.log("sent"))
         setFormData(defaultValues)
-        setNavigation('Sent')
+        setNavigation('Inbox')
         } else {
             alert("Recipient not found")
         }
+        window.location.reload(false)
     }
 
     const handleChange = (e) => {

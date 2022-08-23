@@ -8,13 +8,24 @@ class User < ApplicationRecord
 
     validates :email, uniqueness: true
     validates :email, uniqueness: { case_sensitive: false }
-    validates :email, length: { minimum: 13, maximum: 25 }
+    validates :email, length: { minimum: 13, maximum: 25 }, on: :update, if: :should_validate_email?
+    validates :email, length: { minimum: 13, maximum: 25 }, on: :create
     validates_format_of :email, with: /\b[A-Z0-9._%a-z\-]+@hmail\.com\z/
-    # custom example on front end text field instead of error ("example@hmail.com")
 
     validates :username, uniqueness: true
 
     has_secure_password
-    validates :password, length: { minimum: 3 }
+    validates :password, length: { minimum: 3 }, on: :update, if: :should_validate_password?
+    validates :password, length: { minimum: 3 }, on: :create
+
+    private
+
+    def should_validate_password?
+        password.present?
+    end
+
+    def should_validate_email?
+        email.present?
+    end
 
 end

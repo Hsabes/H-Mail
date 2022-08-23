@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./Login.js"
 import Signup from "./Signup.js"
 import Inbox from "./Inbox.js"
+import Account from "./Account.js"
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="signup" element={<Signup setCurrentUser={setCurrentUser}/>} />
           <Route path="inbox" element={<Inbox currentUser={currentUser} 
           setCurrentUser={setCurrentUser} />} />
+          <Route path="account" element={<Account currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
         </Routes>
 
   );
