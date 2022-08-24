@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     def update
         user = User.find(params[:id])
         user.update!(user_params)
-        render json: user, status: :accepted
+        render json: user, serializer: UserShowSerializer, status: :accepted
     end
 
     def destroy
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     private
     # ERRORS FOR INVALID AND RECORD NOT FOUND ARE IN APP CONTROLLER
     def user_params
-        params.permit(:email, :name, :username, :password)
+        params.permit(:email, :name, :username, :password, :avatar)
     end
 
 end

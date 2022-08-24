@@ -165,7 +165,6 @@ function Signup({ setCurrentUser }) {
                         </Grid>
                         <h5>{passwordStrength}</h5>
                         <Grid item>
-                            {/* need route on button */}
                             <Button variant="contained" 
                             type="submit"                 
                             style={{
