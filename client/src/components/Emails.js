@@ -34,6 +34,8 @@ function Emails({ currentUser, checked, handleToggle, users }) {
     const [open, setOpen] = useState(false)
     const [clickedEmail, setClickedEmail] = useState({})
     const [disabled, setDisabled] = useState(false)
+
+    console.log(users)
     
     const foundSender = users?.find((user) => user.id === clickedEmail.sender_id)
     

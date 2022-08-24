@@ -74,7 +74,7 @@ function renderNavigation(){
     users={users}/>
   } else if (navigation === "Sent"){
     return <SentEmails currentUser={currentUser} 
-    handleToggle={handleToggle} 
+    handleToggle={handleToggle}
     checked={checked}
     users={users}/>
   } else if (navigation === "Compose"){

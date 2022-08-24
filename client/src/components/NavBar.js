@@ -4,7 +4,7 @@ import { AppBar, styled, Avatar, Menu, MenuItem, Toolbar, Box } from "@mui/mater
 import { deepOrange } from '@mui/material/colors';
 import SideMenu from "./SideMenu.js"
 
-function NavBar({ setCurrentUser, setNavigation }) {
+function NavBar({ setCurrentUser, currentUser, setNavigation }) {
 
     const [open, setOpen] = useState(false)
 
@@ -55,6 +55,7 @@ function NavBar({ setCurrentUser, setNavigation }) {
         <Icons>
             <Avatar sx={{ bgcolor: deepOrange[500], width: 57, height: 57 }}
             onClick={e=>setOpen(true)}
+            src={currentUser.avatar}
             />
         </Icons>
         </StyledToolbar>

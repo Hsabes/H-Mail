@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 
+    has_one_attached :avatar
+
     has_many :sent_emails, class_name: "Email", foreign_key: "sender_id", dependent: :destroy
     has_many :recipients, through: :sent_emails, dependent: :destroy
 
