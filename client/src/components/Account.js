@@ -125,7 +125,7 @@ function Account({ currentUser, setCurrentUser }) {
             <Grid item>
                 <Grid item>
                     <Icons>
-                        <Avatar sx={{ bgcolor: deepOrange[500], width: 400, height: 400 }} src={currentUser.avatar} />
+                        <Avatar sx={{ bgcolor: deepOrange[500], width: window.innerWidth < 500 ? 200 : 400, height: window.innerWidth < 500 ? 200 : 400 }} src={currentUser.avatar} />
                     </Icons>
                 </Grid>
                 <form onSubmit={handleAvatarSubmit}>

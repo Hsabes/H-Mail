@@ -34,8 +34,6 @@ function Emails({ currentUser, checked, handleToggle, users }) {
     const [open, setOpen] = useState(false)
     const [clickedEmail, setClickedEmail] = useState({})
     const [disabled, setDisabled] = useState(false)
-
-    console.log(users)
     
     const foundSender = users?.find((user) => user.id === clickedEmail.sender_id)
     
@@ -47,6 +45,23 @@ function Emails({ currentUser, checked, handleToggle, users }) {
         setOpen(false)
         setClickedEmail({})
         setDisabled(false)
+    }
+
+    function handleEmailRead(email){     
+        if (email.read === null){
+            fetch(`/emails/${email.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({ read: true })
+            })
+            .then(res => res.json())
+            .then(res => console.log(email))
+        } else {
+            console.log("email already read")
+        }
     }
 
     const { received_emails } = currentUser
@@ -89,11 +104,13 @@ function Emails({ currentUser, checked, handleToggle, users }) {
                     <StarRateIcon sx={{ ml: 1 }} />    
                     : 
                     <StarBorderIcon sx={{ ml: 1 }} /> }
-                    <ListItemButton disabled={disabled} onClick={(e) => {
+                    <ListItemButton sx={{ color: email.read === true ? "#d3d3d3" : "#000" }} disabled={disabled} onClick={(e) => {
                         if (!disabled){
                             handleOpen()
                             setClickedEmail(email)
                             setDisabled(true)
+                            handleEmailRead(email)
+                            console.log(foundSender.avatar)
                         }
                     }}>
                     <Modal open={open}
@@ -116,7 +133,8 @@ function Emails({ currentUser, checked, handleToggle, users }) {
                         </Fade>
                     </Modal>
                     <ListItemAvatar>
-                        <Avatar />
+                        <Avatar src={foundSender?.avatar}/> 
+                        {/* src should be the senders avatar image */}
                     </ListItemAvatar>
                     { window.innerWidth > 400 
                     ?
