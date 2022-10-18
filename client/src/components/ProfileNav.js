@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate,  Link as RouterLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { AppBar, styled, Avatar, Menu, MenuItem, Toolbar, Box } from "@mui/material"
 import { deepOrange } from '@mui/material/colors';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -28,9 +28,9 @@ function NavBar({ setCurrentUser, currentUser }) {
         navigate("/")
     };
 
-    const handleClick = () => {
-        navigate("/account")
-    }
+    // const handleClick = () => {
+    //     navigate("/account")
+    // }
 
     const handleNavigateClick = () => {
         navigate("/inbox")
