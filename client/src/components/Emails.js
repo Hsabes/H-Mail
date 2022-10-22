@@ -64,6 +64,10 @@ function Emails({ currentUser, checked, handleToggle, users }) {
         }
     }
 
+    function handleReload(){
+        window.location.reload()
+    }
+
     const { received_emails } = currentUser
 
     const sorted_emails = received_emails?.sort((a, b) => b.id - a.id)
@@ -110,7 +114,7 @@ function Emails({ currentUser, checked, handleToggle, users }) {
                             setClickedEmail(email)
                             setDisabled(true)
                             handleEmailRead(email)
-                            console.log(foundSender.avatar)
+                            console.log(email.sender_id)
                         }
                     }}>
                     <Modal open={open}
@@ -120,7 +124,7 @@ function Emails({ currentUser, checked, handleToggle, users }) {
                         <Fade in={open}>
                             <Box sx={style}>
                                 <Button sx={{ left: "90%" }} onClick={handleClose}>
-                                    <CloseIcon />
+                                    <CloseIcon onClick={handleReload}/>
                                 </Button>
                                 <Typography sx={{ mt: 2, mb: 2 }}><strong>From:</strong> {foundSender?.email}</Typography>
                                 <Divider />

@@ -35,7 +35,8 @@ function SentEmails({ currentUser, handleToggle, checked, users }) {
     
     const { sent_emails } = currentUser
     
-    const foundSender = users?.find((user) => user.id === clickedEmail.sender_id)
+    // const foundSender = users?.find((user) => user.id === clickedEmail.sender_id)
+    const foundRecipient = users?.find((user) => user.id === clickedEmail.recipient_id)
     
     function handleOpen(){
         setOpen(true)
@@ -96,7 +97,7 @@ function SentEmails({ currentUser, handleToggle, checked, users }) {
                                 <Button sx={{ left: "90%" }} onClick={handleClose}>
                                     <CloseIcon />
                                 </Button>
-                                <Typography sx={{ mt: 2, mb: 2 }}><strong>To:</strong> {foundSender?.email}</Typography>
+                                <Typography sx={{ mt: 2, mb: 2 }}><strong>To:</strong> {foundRecipient?.email}</Typography>
                                 <Divider />
                                 <Typography sx={{ mt: 2, mb: 2 }}><strong>From:</strong> You</Typography>
                                 <Divider />
