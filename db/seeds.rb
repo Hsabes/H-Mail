@@ -11,7 +11,7 @@ puts "Seeding Users..."
         username: Faker::Name.last_name,
         name: Faker::Name.name,
         password: Faker::Internet.password,
-        profile_picture: Faker::LoremFlickr.image
+        avatar: nil
     )
 end
 
