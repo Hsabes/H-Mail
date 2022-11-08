@@ -15,11 +15,20 @@ function Compose({ currentUser, setNavigation, users }) {
 
     const [formData, setFormData] = useState(defaultValues)
     const [error, setError] = useState("Recipient")
+    const [isHover, setIsHover] = useState(false)
+
+    function handleMouseEnter(){
+        setIsHover(true)
+    }
+
+    function handleMouseLeave(){
+        setIsHover(false)
+    }
+
+    const recipient = users?.find((user) => user.email === formData.recipient)
 
     function handleSubmit(e){
         e.preventDefault()
-
-        const recipient = users?.find((user) => user.email.includes(formData.recipient))
         
         if (recipient){
             fetch(`/emails`, {
@@ -35,7 +44,6 @@ function Compose({ currentUser, setNavigation, users }) {
         .then(res => res.json())
         .then(res => console.log("sent"))
         setFormData(defaultValues)
-        setNavigation('Inbox')
         window.location.reload(false)
         } else {
             setError("Recipient not found")
@@ -90,13 +98,15 @@ function Compose({ currentUser, setNavigation, users }) {
                     </Grid>
                     <Grid item sx={{m: 2}}>
                         <Button
+                        id="send"
                         type="submit"
-                        fullWidth
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
                         style={{
                             '--color-1': 'blue',
                             '--color-2': 'red',
                             '--color-3': 'yellow',
-                            background: `
+                            background:`
                                 linear-gradient(
                                 170deg,
                                 var(--color-1),
@@ -104,10 +114,16 @@ function Compose({ currentUser, setNavigation, users }) {
                                 var(--color-3)
                                 )`,
                             color: 'white',
-                            textAlign: 'center',
+                            width: "150px",
                             padding: 15,
-                            borderRadius: 12,
-                            }}>SEND</Button>
+                            borderRadius: 8,
+                            border: "1px solid #000",
+                        }}
+                        sx={{
+                            opacity: recipient && formData.subject ? 1 : .50,
+                            transition: "1s"
+                        }}
+                        >SEND</Button>
                     </Grid>
                 </form>
             </Grid>
