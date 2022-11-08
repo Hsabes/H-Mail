@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 const defaultValues = {
+    recipient: '',
     recipient_id: '',
     sender_id: '',
     subject: '',
@@ -13,6 +14,7 @@ const defaultValues = {
 function Compose({ currentUser, setNavigation, users }) {
 
     const [formData, setFormData] = useState(defaultValues)
+    const [error, setError] = useState("Recipient")
 
     function handleSubmit(e){
         e.preventDefault()
@@ -34,10 +36,10 @@ function Compose({ currentUser, setNavigation, users }) {
         .then(res => console.log("sent"))
         setFormData(defaultValues)
         setNavigation('Inbox')
-        } else {
-            alert("Recipient not found")
-        }
         window.location.reload(false)
+        } else {
+            setError("Recipient not found")
+        }
     }
 
     const handleChange = (e) => {
@@ -64,11 +66,12 @@ function Compose({ currentUser, setNavigation, users }) {
                         name="recipient"
                         value={formData.recipient}
                         onChange={handleChange}
-                        label="Recipient"></TextField>
+                        label={error}></TextField>
                     </Grid>
                     <Grid item sx={{ m: 2 }}>
                         <TextField fullWidth 
                         variant="standard"
+                        required
                         value={formData.subject}
                         type="text"
                         name="subject"

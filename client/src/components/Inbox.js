@@ -13,17 +13,21 @@ function Inbox({ currentUser, setCurrentUser }) {
   const [checked, setChecked] = useState([]);
   const [users, setUsers] = useState([])
 
-    useEffect(() => {
-        fetch("/users")
-        .then(res => res.json())
-        .then((res) => {
-          setUsers(res)
-        })
-      }, []); 
+  // let refresh = 0;
 
-  
+  // while (refresh < 10000){
+  //   setTimeout(function(){
+  //     refresh += 1
+  //   }, 5000)
+  // }
 
-    
+  useEffect(() => {
+      fetch("/users")
+      .then(res => res.json())
+      .then((res) => {
+        setUsers(res)
+      })
+    }, []); 
 
   function handleSaveClick(e){
     checked.map(email => {
