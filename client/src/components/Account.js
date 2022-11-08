@@ -108,7 +108,7 @@ function Account({ currentUser, setCurrentUser }) {
     }
 
     console.log(avatarData)
-    console.log(currentUser)
+    console.log(currentUser.avatar)
 
     const handleClickShowPassword = () => {
         setShowPassword((currentState) => !currentState);

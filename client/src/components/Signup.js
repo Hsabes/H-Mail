@@ -44,7 +44,7 @@ function Signup({ setCurrentUser }) {
                     navigate("/inbox")
                     const email = {
                         subject: "Welcome to Hmail!",
-                        body: "Thank you for signing up at H-Mail. Feel free to send any friends you have some emails, they'll need an H-Mail account as well.",
+                        body: "Thank you for signing up at H-Mail. Feel free to send any friends you have some emails, they'll need an H-Mail account as well. Try sending yourself an email!",
                         sender_id: 1,
                         recipient_id: user.id,
                     }
