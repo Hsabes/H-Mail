@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Button from "@mui/material/Button";
 import Fade from '@mui/material/Fade';
+import { deepOrange } from '@mui/material/colors';
 
 const style = {
     position: 'absolute',
@@ -29,7 +30,7 @@ const style = {
     p: 4,
 }
 
-function Emails({ currentUser, checked, handleToggle, users }) {
+function Emails({ currentUser, checked, handleToggle, users, findAvatar }) {
 
     const [open, setOpen] = useState(false)
     const [clickedEmail, setClickedEmail] = useState({})
@@ -71,13 +72,6 @@ function Emails({ currentUser, checked, handleToggle, users }) {
     const { received_emails } = currentUser
 
     const sorted_emails = received_emails?.sort((a, b) => b.id - a.id)
-
-    function findAvatar(email){
-        let foundSender = users?.find((user) => user.id === email.sender_id)
-        if (foundSender){
-            return foundSender.avatar
-        }
-    }
 
   return (
     <>
@@ -143,8 +137,7 @@ function Emails({ currentUser, checked, handleToggle, users }) {
                         </Fade>
                     </Modal>
                     <ListItemAvatar>
-                        <Avatar src={findAvatar(email)}/> 
-                        {/* src should be the senders avatar image */}
+                        <Avatar src={findAvatar(email)} sx={{ bgcolor: deepOrange[500], height: 48, width: 48 }} /> 
                     </ListItemAvatar>
                     { window.innerWidth > 400 
                     ?

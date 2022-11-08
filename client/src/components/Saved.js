@@ -29,7 +29,7 @@ const style = {
     p: 4,
 }
 
-function Saved({ currentUser, handleToggle, checked, users }) {
+function Saved({ currentUser, handleToggle, checked, users, findAvatar }) {
 
     const [open, setOpen] = useState(false)
     const [clickedEmail, setClickedEmail] = useState({})
@@ -116,7 +116,7 @@ function Saved({ currentUser, handleToggle, checked, users }) {
                         </Fade>
                     </Modal>
                     <ListItemAvatar>
-                        <Avatar />
+                        <Avatar src={findAvatar(email)}/>
                     </ListItemAvatar>
                     { window.innerWidth > 400 
                     ?
