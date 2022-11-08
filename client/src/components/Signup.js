@@ -181,7 +181,7 @@ function Signup({ setCurrentUser }) {
                         <h5>{passwordStrength}</h5>
                         <Grid item>
                             <Button variant="contained" 
-                            type="submit"                 
+                            type="submit"         
                             style={{
                                 '--color-1': 'blue',
                                 '--color-2': 'red',
@@ -201,7 +201,7 @@ function Signup({ setCurrentUser }) {
                                 padding: 15,
                                 borderRadius: 12,
                                 }}
-                                >Sign up</Button>
+                            >Sign up</Button>
                         </Grid>
                         <Grid item sx={{ mt: 2 }}>
                             <Link component={RouterLink} to="/">Login instead</Link>
