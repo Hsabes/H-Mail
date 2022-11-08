@@ -28,7 +28,7 @@ function Signup({ setCurrentUser }) {
     function handleSubmit(e){
         e.preventDefault()
         const user = {
-            email, 
+            email,
             username,
             password
         }
