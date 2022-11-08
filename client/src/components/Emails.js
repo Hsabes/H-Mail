@@ -114,7 +114,6 @@ function Emails({ currentUser, checked, handleToggle, users }) {
                             setClickedEmail(email)
                             setDisabled(true)
                             handleEmailRead(email)
-                            console.log(email.sender_id)
                         }
                     }}>
                     <Modal open={open}
