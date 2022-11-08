@@ -42,12 +42,27 @@ function Signup({ setCurrentUser }) {
                 res.json().then(user => {
                     setCurrentUser(user)
                     navigate("/inbox")
+                    const email = {
+                        subject: "Welcome to Hmail!",
+                        body: "Thank you for signing up at H-Mail. Feel free to send any friends you have some emails, they'll need an H-Mail account as well.",
+                        sender_id: 1,
+                        recipient_id: user.id,
+                    }
+                    fetch('/emails', {
+                        method: 'POST',
+                        headers:{'Content-Type': 'application/json'},
+                        body: JSON.stringify(email)
+                    })
+                    .then(res => res.json())
+                    .then(data => console.log(data))
+                    window.location.reload(false)
                 })
                 setFormData(defaultValues)
             } else {
                 res.json().then(json => setErrors(Object.entries(json.errors)))
             }
-        })     
+        }) 
+
     }
 
       const handleChange = (e) => {

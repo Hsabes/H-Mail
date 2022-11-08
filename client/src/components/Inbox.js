@@ -21,6 +21,10 @@ function Inbox({ currentUser, setCurrentUser }) {
         })
       }, []); 
 
+  
+
+    
+
   function handleSaveClick(e){
     checked.map(email => {
         fetch(`/emails/${email.id}`, {
