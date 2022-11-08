@@ -69,22 +69,32 @@ const handleToggle = (value) => () => {
   setChecked(newChecked);
 };
 
+function findAvatar(email){
+  let foundSender = users?.find((user) => user.id === email.sender_id)
+  if (foundSender){
+      return foundSender.avatar
+  }
+}
+
 function renderNavigation(){
   if (navigation === "Inbox"){
     return <Emails currentUser={currentUser} 
     handleToggle={handleToggle}
     checked={checked}
-    users={users}/>
+    users={users}
+    findAvatar={findAvatar}/>
   } else if (navigation === "Saved"){
     return <Saved currentUser={currentUser}
     handleToggle={handleToggle}
     checked={checked}
-    users={users}/>
+    users={users}
+    findAvatar={findAvatar}/>
   } else if (navigation === "Sent"){
     return <SentEmails currentUser={currentUser} 
     handleToggle={handleToggle}
     checked={checked}
-    users={users}/>
+    users={users}
+    findAvatar={findAvatar}/>
   } else if (navigation === "Compose"){
     return <Compose currentUser={currentUser} 
     setNavigation={setNavigation}
