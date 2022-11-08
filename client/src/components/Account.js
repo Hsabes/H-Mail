@@ -102,7 +102,9 @@ function Account({ currentUser, setCurrentUser }) {
         })
         .then(res => res.json())
         .then(res => console.log("avatar edited"))
-        window.location.reload(false)
+
+            window.location.refresh()
+
     }
 
     console.log(avatarData)

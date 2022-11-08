@@ -72,6 +72,13 @@ function Emails({ currentUser, checked, handleToggle, users }) {
 
     const sorted_emails = received_emails?.sort((a, b) => b.id - a.id)
 
+    function findAvatar(email){
+        let foundSender = users?.find((user) => user.id === email.sender_id)
+        if (foundSender){
+            return foundSender.avatar
+        }
+    }
+
   return (
     <>
         <Box style={{ textAlign: "center" }}>
@@ -136,7 +143,7 @@ function Emails({ currentUser, checked, handleToggle, users }) {
                         </Fade>
                     </Modal>
                     <ListItemAvatar>
-                        <Avatar src={foundSender?.avatar}/> 
+                        <Avatar src={findAvatar(email)}/> 
                         {/* src should be the senders avatar image */}
                     </ListItemAvatar>
                     { window.innerWidth > 400 
