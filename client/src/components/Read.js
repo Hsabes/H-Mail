@@ -7,14 +7,15 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
+import CloseIcon from '@mui/icons-material/Close';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import CloseIcon from '@mui/icons-material/Close';
 import Button from "@mui/material/Button";
 import Fade from '@mui/material/Fade';
+import { deepOrange } from '@mui/material/colors';
 
 const style = {
     position: 'absolute',
@@ -29,16 +30,14 @@ const style = {
     p: 4,
 }
 
-function Saved({ currentUser, handleToggle, checked, users, findAvatar }) {
+function Read({users, currentUser, checked, handleToggle}){
 
     const [open, setOpen] = useState(false)
     const [clickedEmail, setClickedEmail] = useState({})
     const [disabled, setDisabled] = useState(false)
 
-    console.log(users)
-    
     const foundSender = users?.find((user) => user.id === clickedEmail.sender_id)
-    
+
     function handleOpen(){
         setOpen(true)
     }
@@ -48,35 +47,41 @@ function Saved({ currentUser, handleToggle, checked, users, findAvatar }) {
         setClickedEmail({})
         setDisabled(false)
     }
-  
+
     const { received_emails } = currentUser
 
-    const savedEmails = received_emails?.filter((email) => email.saved === true)
+    const sorted_emails = received_emails?.sort((a, b) => b.id - a.id)
+
+    const filteredByRead = sorted_emails?.filter((email) => email.read === true)
+
+    if (filteredByRead){
+        console.log(filteredByRead.length)
+    }
 
   return (
     <>
         <Box style={{ textAlign: "center" }}>
-            <h2 syle={{ textAlign: "center" }}>Saved Emails</h2>
+            <h2 syle={{ textAlign: "center" }}>Read Emails</h2>
         </Box>
         <List dense sx={{ width: '100%' }}>
-        {savedEmails?.map((email) => {
+        {filteredByRead?.map((email) => {
             const labelId = `checkbox-list-secondary-label-${email}`;
             return (
                 <ListItem
                     key={email.id}
                     onClick={(e) => {
                         if (!disabled && email.read === false){
-                        fetch(`/emails/${email.id}`, {
-                            method: 'PATCH',
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json"
-                            },
-                            body: JSON.stringify({ read: true })
-                        })
-                        .then(res => res.json())
-                        .then(res => console.log("email read"))
-                    }}}
+                            fetch(`/emails/${email.id}`, {
+                                method: 'PATCH',
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json"
+                                },
+                                body: JSON.stringify({ read: true })
+                            })
+                            .then(res => res.json())
+                            .then(res => console.log("email read"))
+                        }}}
                     disablePadding>     
                     <Checkbox
                         edge="end"
@@ -89,7 +94,7 @@ function Saved({ currentUser, handleToggle, checked, users, findAvatar }) {
                     <StarRateIcon sx={{ ml: 1 }} />    
                     : 
                     <StarBorderIcon sx={{ ml: 1 }} /> }
-                    <ListItemButton disabled={disabled} onClick={(e) => {
+                    <ListItemButton sx={{ color: email.read === true ? "#d3d3d3" : "#000" }} disabled={disabled} onClick={(e) => {
                         if (!disabled){
                             handleOpen()
                             setClickedEmail(email)
@@ -116,7 +121,7 @@ function Saved({ currentUser, handleToggle, checked, users, findAvatar }) {
                         </Fade>
                     </Modal>
                     <ListItemAvatar>
-                        <Avatar src={findAvatar(email)}/>
+                        <Avatar src={null} sx={{ bgcolor: deepOrange[500], height: 48, width: 48 }} /> 
                     </ListItemAvatar>
                     { window.innerWidth > 400 
                     ?
@@ -128,7 +133,7 @@ function Saved({ currentUser, handleToggle, checked, users, findAvatar }) {
                     :
                     <ListItemText id={labelId} primary={email.subject.slice(0,8) + "..."} />
                     }
-                    { window.innerWidth > 400
+                    { window.innerWidth > 400 
                     ? 
                     <h4>Received: {email.created_at.slice(0, 10)}</h4> 
                     :
@@ -143,4 +148,4 @@ function Saved({ currentUser, handleToggle, checked, users, findAvatar }) {
   )
 }
 
-export default Saved
+export default Read

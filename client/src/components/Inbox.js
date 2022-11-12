@@ -6,20 +6,13 @@ import Emails from "./Emails.js"
 import Saved from "./Saved.js"
 import Compose from "./Compose.js"
 import SentEmails from "./SentEmails.js"
+import Read from "./Read.js"
 
 function Inbox({ currentUser, setCurrentUser }) {
 
   const [navigation, setNavigation] = useState("Inbox")
   const [checked, setChecked] = useState([]);
   const [users, setUsers] = useState([])
-
-  // let refresh = 0;
-
-  // while (refresh < 10000){
-  //   setTimeout(function(){
-  //     refresh += 1
-  //   }, 5000)
-  // }
 
   useEffect(() => {
       fetch("/users")
@@ -65,7 +58,6 @@ const handleToggle = (value) => () => {
   } else {
   newChecked.splice(currentIndex, 1);
   }
-
   setChecked(newChecked);
 };
 
@@ -99,6 +91,11 @@ function renderNavigation(){
     return <Compose currentUser={currentUser} 
     setNavigation={setNavigation}
     users={users}/>
+  } else if (navigation === "Read"){
+    return <Read currentUser={currentUser}
+    users={users}
+    checked={checked}
+    handleToggle={handleToggle}/>
   }
 }
 
@@ -126,5 +123,3 @@ function renderNavigation(){
 }
 
 export default Inbox
-
-// saved, sent, all

@@ -48,6 +48,8 @@ function Emails({ currentUser, checked, handleToggle, users, findAvatar }) {
         setDisabled(false)
     }
 
+    // This function sets the read property of a users particular recieved email to read, which is then styled accordingly when rendered
+
     function handleEmailRead(email){     
         if (email.read === null){
             fetch(`/emails/${email.id}`, {

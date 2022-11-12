@@ -35,7 +35,6 @@ function SentEmails({ currentUser, handleToggle, checked, users, findAvatar }) {
     
     const { sent_emails } = currentUser
     
-    // const foundSender = users?.find((user) => user.id === clickedEmail.sender_id)
     const foundRecipient = users?.find((user) => user.id === clickedEmail.recipient_id)
     
     function handleOpen(){
