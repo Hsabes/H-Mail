@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -30,33 +30,11 @@ const style = {
     p: 4,
 }
 
-function Read({users, currentUser, checked, handleToggle}){
+function ReadEmails({ received_emails, checked, handleToggle, findAvatar, open, clickedEmail, setClickedEmail, disabled, setDisabled, foundSender, handleOpen, handleClose }){
 
-    const [open, setOpen] = useState(false)
-    const [clickedEmail, setClickedEmail] = useState({})
-    const [disabled, setDisabled] = useState(false)
+  const sorted_emails = received_emails?.sort((a, b) => b.id - a.id)
 
-    const foundSender = users?.find((user) => user.id === clickedEmail.sender_id)
-
-    function handleOpen(){
-        setOpen(true)
-    }
-
-    function handleClose(){
-        setOpen(false)
-        setClickedEmail({})
-        setDisabled(false)
-    }
-
-    const { received_emails } = currentUser
-
-    const sorted_emails = received_emails?.sort((a, b) => b.id - a.id)
-
-    const filteredByRead = sorted_emails?.filter((email) => email.read === true)
-
-    if (filteredByRead){
-        console.log(filteredByRead.length)
-    }
+  const filteredByRead = sorted_emails?.filter((email) => email.read === true)
 
   return (
     <>
@@ -94,7 +72,7 @@ function Read({users, currentUser, checked, handleToggle}){
                     <StarRateIcon sx={{ ml: 1 }} />    
                     : 
                     <StarBorderIcon sx={{ ml: 1 }} /> }
-                    <ListItemButton sx={{ color: email.read === true ? "#d3d3d3" : "#000" }} disabled={disabled} onClick={(e) => {
+                    <ListItemButton sx={{ color: "#000" }} disabled={disabled} onClick={(e) => {
                         if (!disabled){
                             handleOpen()
                             setClickedEmail(email)
@@ -121,7 +99,7 @@ function Read({users, currentUser, checked, handleToggle}){
                         </Fade>
                     </Modal>
                     <ListItemAvatar>
-                        <Avatar src={null} sx={{ bgcolor: deepOrange[500], height: 48, width: 48 }} /> 
+                        <Avatar src={findAvatar(email)} sx={{ bgcolor: deepOrange[500], height: 48, width: 48 }} /> 
                     </ListItemAvatar>
                     { window.innerWidth > 400 
                     ?
@@ -148,4 +126,4 @@ function Read({users, currentUser, checked, handleToggle}){
   )
 }
 
-export default Read
+export default ReadEmails
