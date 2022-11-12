@@ -12,6 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CreateIcon from '@mui/icons-material/Create';
 import SendIcon from '@mui/icons-material/Send';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 
 export default function SideMenu({ setNavigation }) {
   const [drawer, setDrawer] = useState({
@@ -33,7 +34,7 @@ export default function SideMenu({ setNavigation }) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['Inbox', 'Saved', 'Compose', 'Sent'].map((text) => (
+        {['Inbox', 'Saved', 'Compose', 'Sent', 'Read'].map((text) => (
           <ListItem key={text} disablePadding>
             <ListItemButton onClick={(e) => {
               if (text === "Inbox"){
@@ -44,6 +45,8 @@ export default function SideMenu({ setNavigation }) {
                 setNavigation(text)
               } else if (text === "Sent"){
                 setNavigation(text)
+              } else if (text === "Read"){
+                setNavigation(text)
               }
             } }>
               <ListItemIcon>
@@ -51,6 +54,7 @@ export default function SideMenu({ setNavigation }) {
                 {text === "Saved" ? <InboxIcon /> : null}
                 {text === "Compose" ? <CreateIcon /> : null}
                 {text === "Sent" ? <SendIcon /> : null}
+                {text === "Read" ? <MarkEmailReadIcon /> : null}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
