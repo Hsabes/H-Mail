@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -27,27 +27,13 @@ const style = {
     p: 4,
 }
 
-function SentEmails({ currentUser, handleToggle, checked, users, findAvatar }) {
-  
-    const [open, setOpen] = useState(false)
-    const [clickedEmail, setClickedEmail] = useState({})
-    const [disabled, setDisabled] = useState(false)
+function SentEmails({ currentUser, handleToggle, checked, users, findAvatar, open, clickedEmail, setClickedEmail, disabled, setDisabled, handleOpen, handleClose }) {
     
     const { sent_emails } = currentUser
     
     const foundRecipient = users?.find((user) => user.id === clickedEmail.recipient_id)
-    
-    function handleOpen(){
-        setOpen(true)
-    }
 
-    function handleClose(){
-        setOpen(false)
-        setClickedEmail({})
-        setDisabled(false)
-    }
-
-    const sorted_emails = sent_emails?.sort((a, b) => b.id - a.id)
+    const sorted_sent_emails = sent_emails?.sort((a, b) => b.id - a.id)
   
   return (
     <>
@@ -55,7 +41,7 @@ function SentEmails({ currentUser, handleToggle, checked, users, findAvatar }) {
             <h2 syle={{ textAlign: "center" }}>Sent Emails</h2>
         </Box>
         <List dense sx={{ width: '100%' }}>
-        {sorted_emails?.map((email) => {
+        {sorted_sent_emails?.map((email) => {
             const labelId = `checkbox-list-secondary-label-${email}`;
             return (
                 <ListItem

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -15,6 +15,7 @@ import Divider from '@mui/material/Divider';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from "@mui/material/Button";
 import Fade from '@mui/material/Fade';
+import { deepOrange } from '@mui/material/colors';
 
 const style = {
     position: 'absolute',
@@ -29,29 +30,9 @@ const style = {
     p: 4,
 }
 
-function Saved({ currentUser, handleToggle, checked, users, findAvatar }) {
+function Saved({ received_emails, handleToggle, checked, findAvatar, open, clickedEmail, setClickedEmail, disabled, setDisabled, foundSender, handleOpen, handleClose }) {
 
-    const [open, setOpen] = useState(false)
-    const [clickedEmail, setClickedEmail] = useState({})
-    const [disabled, setDisabled] = useState(false)
-
-    console.log(users)
-    
-    const foundSender = users?.find((user) => user.id === clickedEmail.sender_id)
-    
-    function handleOpen(){
-        setOpen(true)
-    }
-
-    function handleClose(){
-        setOpen(false)
-        setClickedEmail({})
-        setDisabled(false)
-    }
-  
-    const { received_emails } = currentUser
-
-    const savedEmails = received_emails?.filter((email) => email.saved === true)
+  const savedEmails = received_emails?.filter((email) => email.saved === true)
 
   return (
     <>
@@ -116,7 +97,7 @@ function Saved({ currentUser, handleToggle, checked, users, findAvatar }) {
                         </Fade>
                     </Modal>
                     <ListItemAvatar>
-                        <Avatar src={findAvatar(email)}/>
+                        <Avatar src={findAvatar(email)} sx={{ bgcolor: deepOrange[500], height: 48, width: 48 }}/>
                     </ListItemAvatar>
                     { window.innerWidth > 400 
                     ?

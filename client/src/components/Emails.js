@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -30,23 +30,7 @@ const style = {
     p: 4,
 }
 
-function Emails({ currentUser, checked, handleToggle, users, findAvatar }) {
-
-    const [open, setOpen] = useState(false)
-    const [clickedEmail, setClickedEmail] = useState({})
-    const [disabled, setDisabled] = useState(false)
-    
-    const foundSender = users?.find((user) => user.id === clickedEmail.sender_id)
-    
-    function handleOpen(){
-        setOpen(true)
-    }
-
-    function handleClose(){
-        setOpen(false)
-        setClickedEmail({})
-        setDisabled(false)
-    }
+function Emails({ received_emails, checked, handleToggle, findAvatar, open, clickedEmail, setClickedEmail, disabled, setDisabled, foundSender, handleOpen, handleClose }) {
 
     // This function sets the read property of a users particular recieved email to read, which is then styled accordingly when rendered
 
@@ -70,8 +54,6 @@ function Emails({ currentUser, checked, handleToggle, users, findAvatar }) {
     function handleReload(){
         window.location.reload()
     }
-
-    const { received_emails } = currentUser
 
     const sorted_emails = received_emails?.sort((a, b) => b.id - a.id)
 
