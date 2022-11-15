@@ -15,6 +15,7 @@ import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 
 export default function SideMenu({ setNavigation }) {
+  
   const [drawer, setDrawer] = useState({
     left: false,
   });

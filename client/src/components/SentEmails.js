@@ -13,6 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Modal from '@mui/material/Modal';
 import Button from "@mui/material/Button";
 import Fade from '@mui/material/Fade';
+import { deepOrange } from '@mui/material/colors';
 
 const style = {
     position: 'absolute',
@@ -24,7 +25,8 @@ const style = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 12,
-    p: 4,
+    overflowY: "scroll",
+    p: 4
 }
 
 function SentEmails({ currentUser, handleToggle, checked, users, findAvatar, open, clickedEmail, setClickedEmail, disabled, setDisabled, handleOpen, handleClose }) {
@@ -93,7 +95,7 @@ function SentEmails({ currentUser, handleToggle, checked, users, findAvatar, ope
                         </Fade>
                     </Modal>
                     <ListItemAvatar>
-                        <Avatar src={findAvatar(email)}/>
+                        <Avatar src={findAvatar(email)} sx={{ bgcolor: deepOrange[500], height: 48, width: 48 }}/>
                     </ListItemAvatar>
                     { window.innerWidth > 400 
                     ?

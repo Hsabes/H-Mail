@@ -27,10 +27,11 @@ const style = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 12,
-    p: 4,
+    overflowY: "scroll",
+    p: 4
 }
 
-function Emails({ received_emails, checked, handleToggle, findAvatar, open, clickedEmail, setClickedEmail, disabled, setDisabled, foundSender, handleOpen, handleClose }) {
+function Emails({ received_emails, checked, handleToggle, findAvatar, open, clickedEmail, setClickedEmail, disabled, setDisabled, foundSender, handleOpen, handleClose, handleReload }) {
 
     // This function sets the read property of a users particular recieved email to read, which is then styled accordingly when rendered
 
@@ -49,10 +50,6 @@ function Emails({ received_emails, checked, handleToggle, findAvatar, open, clic
         } else {
             console.log("email already read")
         }
-    }
-
-    function handleReload(){
-        window.location.reload()
     }
 
     const sorted_emails = received_emails?.sort((a, b) => b.id - a.id)

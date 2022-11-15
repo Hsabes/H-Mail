@@ -27,7 +27,8 @@ const style = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 12,
-    p: 4,
+    overflowY: "scroll",
+    p: 4
 }
 
 function ReadEmails({ received_emails, checked, handleToggle, findAvatar, open, clickedEmail, setClickedEmail, disabled, setDisabled, foundSender, handleOpen, handleClose }){
