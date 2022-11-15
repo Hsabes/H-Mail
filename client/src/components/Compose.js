@@ -11,19 +11,10 @@ const defaultValues = {
     body: ''
 }
 
-function Compose({ currentUser, setNavigation, users }) {
+function Compose({ currentUser, users }) {
 
     const [formData, setFormData] = useState(defaultValues)
     const [error, setError] = useState("Recipient")
-    const [isHover, setIsHover] = useState(false)
-
-    function handleMouseEnter(){
-        setIsHover(true)
-    }
-
-    function handleMouseLeave(){
-        setIsHover(false)
-    }
 
     const recipient = users?.find((user) => user.email === formData.recipient)
 
@@ -100,8 +91,6 @@ function Compose({ currentUser, setNavigation, users }) {
                         <Button
                         id="send"
                         type="submit"
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
                         style={{
                             '--color-1': 'blue',
                             '--color-2': 'red',

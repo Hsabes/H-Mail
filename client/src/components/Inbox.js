@@ -8,23 +8,25 @@ import Compose from "./Compose.js"
 import SentEmails from "./SentEmails.js"
 import ReadEmails from "./ReadEmails.js"
 
+// Almost all of the logic for this application is handled in this component, and passed to other components as props. This was done to avoid duplicate use of state and function
+
 function Inbox({ currentUser, setCurrentUser }) {
 
   // Gets all of the users received emails, which are used in different ways depending on the navigation the user clicks
 
   const { received_emails } = currentUser
 
-  // This is all of the state for the application. It is passed to the various components to handle tasks such as disabling buttons, handling clicks on specific
-  // emails, setting emails to checked to be saved or deleted, opening modals to view specific emails, and utilizing an array of all users for different purposes
+  // Below is all of the state for the application as it pertains to emails. It is passed to the various components to handle tasks such as disabling buttons, handling clicks 
+  // on specific emails, selecting emails to be saved or deleted, opening modals to view specific emails, and utilizing an array of all users for different purposes
 
   // See the components they are being passed into below
 
-  const [open, setOpen] = useState(false)
-  const [clickedEmail, setClickedEmail] = useState({})
-  const [disabled, setDisabled] = useState(false)
-  const [navigation, setNavigation] = useState("Inbox")
-  const [checked, setChecked] = useState([]);
-  const [users, setUsers] = useState([])
+  const [open, setOpen] = useState(false) // Opens modals; boolean
+  const [clickedEmail, setClickedEmail] = useState({}) // Tracks which email is being clicked; object
+  const [disabled, setDisabled] = useState(false) // For debugging purposes. Prevents viewed emailing from swapping when user is viewing an email and clicks anywhere on the page; boolean
+  const [navigation, setNavigation] = useState("Inbox") // Handles rendering specific emails depending on which navigation item the user has clicked; string
+  const [checked, setChecked] = useState([]); // Tracks which email(s) are selected by the user to be deleted or saved; array of objects
+  const [users, setUsers] = useState([]) // All users; array of objects
 
   // Finds the sender of a clicked email. This is used to display the name of the sender in the email, and eventually utlized for a reply function
 
@@ -40,6 +42,12 @@ function Inbox({ currentUser, setCurrentUser }) {
       setOpen(false)
       setClickedEmail({})
       setDisabled(false)
+  }
+
+  // Reloads the page
+
+  function handleReload(){
+    window.location.reload()
   }
 
   // Fetches all users. This is to gather rendered information such as the sender of an email
@@ -106,77 +114,37 @@ function Inbox({ currentUser, setCurrentUser }) {
     }
   }
 
+  const propPack = {
+    currentUser: currentUser,
+    received_emails: received_emails,
+    handleToggle: handleToggle,
+    checked: checked,
+    users: users,
+    findAvatar: findAvatar,
+    open: open,
+    setOpen: setOpen,
+    clickedEmail: clickedEmail,
+    setClickedEmail: setClickedEmail,
+    disabled: disabled,
+    setDisabled: setDisabled,
+    foundSender: foundSender,
+    handleOpen: handleOpen,
+    handleClose: handleClose,
+  };
+
   // Renders specific kinds of emails based on what the user clicks. See "./SideMenu.js". This is called in the return of this component
 
   function renderNavigation(){
     if (navigation === "Inbox"){
-      return <Emails received_emails={received_emails} 
-      handleToggle={handleToggle}
-      checked={checked}
-      users={users}
-      findAvatar={findAvatar}
-      open={open}
-      setOpen={setOpen}
-      clickedEmail={clickedEmail}
-      setClickedEmail={setClickedEmail}
-      disabled={disabled}
-      setDisabled={setDisabled}
-      foundSender={foundSender}
-      handleOpen={handleOpen}
-      handleClose={handleClose}/>
+      return <Emails {...propPack} handleReload={handleReload}/>
     } else if (navigation === "Saved"){
-      return <Saved received_emails={received_emails}
-      handleToggle={handleToggle}
-      checked={checked}
-      users={users}
-      findAvatar={findAvatar}
-      open={open}
-      setOpen={setOpen}
-      clickedEmail={clickedEmail}
-      setClickedEmail={setClickedEmail}
-      disabled={disabled}
-      setDisabled={setDisabled}
-      foundSender={foundSender}
-      handleOpen={handleOpen}
-      handleClose={handleClose}/>
+      return <Saved {...propPack}/>
     } else if (navigation === "Sent"){
-      return <SentEmails currentUser={currentUser} 
-      handleToggle={handleToggle}
-      checked={checked}
-      users={users}
-      findAvatar={findAvatar}
-      open={open}
-      clickedEmail={clickedEmail}
-      setClickedEmail={setClickedEmail}
-      disabled={disabled}
-      setDisabled={setDisabled}
-      handleOpen={handleOpen}
-      handleClose={handleClose}/>
+      return <SentEmails {...propPack} />
     } else if (navigation === "Compose"){
-      return <Compose currentUser={currentUser} 
-      setNavigation={setNavigation}
-      users={users}
-      open={open}
-      setOpen={setOpen}
-      clickedEmail={clickedEmail}
-      setClickedEmail={setClickedEmail}
-      disabled={disabled}
-      setDisabled={setDisabled}/>
+      return <Compose {...propPack} setNavigation={setNavigation}/>
     } else if (navigation === "Read"){
-      return <ReadEmails received_emails={received_emails}
-      users={users}
-      checked={checked}
-      handleToggle={handleToggle}
-      findAvatar={findAvatar}
-      open={open}
-      setOpen={setOpen}
-      clickedEmail={clickedEmail}
-      setClickedEmail={setClickedEmail}
-      disabled={disabled}
-      setDisabled={setDisabled}
-      foundSender={foundSender}
-      handleOpen={handleOpen}
-      handleClose={handleClose}/>
+      return <ReadEmails {...propPack}/>
     }
   }
 
