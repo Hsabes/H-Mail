@@ -30,7 +30,7 @@ function Login({ setCurrentUser }) {
         });
     };
 
-    const handleSubmit = (e) => {
+const handleSubmit = (e) => {
     e.preventDefault();
 
     const configObj = {
@@ -50,15 +50,17 @@ function Login({ setCurrentUser }) {
         setError('Incorrect Email or Password. Try Again!');
     }})
     .then((user) => {
-        setCurrentUser(user)
-        navigate("/inbox")
-        window.location.reload(false)
+        if (user){
+            setCurrentUser(user)
+            navigate("/inbox")
+            window.location.reload(false)
+        }
     })
     .catch((error) => {
         alert(error)
     })
     setFormValues(defaultValues);
-    };
+};
 
     const handleClickShowPassword = () => {
         setShowPassword((currentState) => !currentState);
