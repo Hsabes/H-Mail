@@ -114,6 +114,8 @@ function Inbox({ currentUser, setCurrentUser }) {
     }
   }
 
+  // This object serves as a way to avoid passing a large amount of props multiple times into the renderNavigation() function.
+
   const propPack = {
     currentUser: currentUser,
     received_emails: received_emails,
