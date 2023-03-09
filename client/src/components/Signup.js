@@ -22,6 +22,8 @@ function Signup({ setCurrentUser }) {
     const [errors, setErrors] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
+    console.log(errors)
+
     const navigate = useNavigate();
     const {email, username, password} = formData
 

@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: hmail_app_production
+  database: d3lh3i40jeuo8
   username: hmail_app
   password: <%= ENV["HMAIL_APP_DATABASE_PASSWORD"] %>
